@@ -1,0 +1,9 @@
+# Maven + JDK17 (Eclipse Temurin)
+FROM maven:3.9.6-eclipse-temurin-17
+
+# 作業ディレクトリを設定 以降のコマンドはここで実行
+WORKDIR /workspace
+
+# bashなどの便利コマンド用（必要であれば）
+# RUN apt-get update && apt-get install -y vim curl git
+RUN apt-get update

@@ -1,0 +1,20 @@
+services:
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: spring-dev
+    volumes:
+      - .:/workspace    # ホストの ./app をコンテナの /workspace にマウント
+    working_dir: /workspace
+    stdin_open: true      # コンテナに対話的に入れる（例: bash）
+    tty: true    # 仮想ターミナルを有効化
+    command: bash  # ← シェルを起動
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    container_name: spring-web
+    ports:
+      - "8080:8080"

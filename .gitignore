@@ -1,0 +1,27 @@
+# Java
+*.class
+*.jar
+*.war
+
+# Maven
+target/
+.idea/
+*.iml
+*.log
+
+# VS Code
+.vscode/
+
+# OS
+.DS_Store
+
+# Docker
+**/.dockerignore
+
+# Eclipse
+*.project
+*.classpath
+.settings/
+
+# Other
+*.swp
