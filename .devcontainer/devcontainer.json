@@ -1,0 +1,26 @@
+{
+  "name": "Spring WebApp Dev Container",
+  "build": {
+    "dockerfile": "../Dockerfile.dev",
+    "context": ".."
+  },
+  
+  "extensions": [
+    "vscjava.vscode-java-pack"
+  ],
+
+  "postCreateCommand": "mvn clean install -f spring-webapp/pom.xml",
+
+  "forwardPorts": [8080, 8000],
+
+  "workspaceFolder": "/workspace",
+
+  // VS Code Serverが実行されるユーザーを指定
+  "remoteUser": "devuser", // Dockerfileで作成したユーザー名を指定
+
+  // VS Code Serverのホームディレクトリを設定する環境変数
+  // これにより、/home/devuser/.vscode-server/... にファイルが作成されるようになる
+  "remoteEnv": {
+    "VSCODE_SERVER_CONTAINER_USER_HOME": "/home/devuser"
+  }
+}

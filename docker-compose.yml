@@ -1,20 +1,29 @@
 services:
   dev:
     build:
-      context: .
-      dockerfile: Dockerfile.dev
+      context: .   # Dockerfile.dev がある場所（カレントディレクトリ）
+      dockerfile: development/Dockerfile.dev
+      args:
+        UID: ${UID}
+        GID: ${GID}
     container_name: spring-dev
+    
     volumes:
       - .:/workspace    # ホストの ./app をコンテナの /workspace にマウント
+    # 作業ディレクトリを明示的に指定（Dockerfileでも設定されているが冗長性をもたせる）
     working_dir: /workspace
     stdin_open: true      # コンテナに対話的に入れる（例: bash）
     tty: true    # 仮想ターミナルを有効化
     command: bash  # ← シェルを起動
 
+    #environment:    
+      # VS Code Serverのホームディレクトリを/home/devuserに設定
+      # これにより、/rootではなく、この非rootユーザーのホームディレクトリにVS Code Serverのファイルが作成されます。
+      # - VSCODE_SERVER_CONTAINER_USER_HOME=/home/devuser
   web:
     build:
       context: .
-      dockerfile: Dockerfile.web
+      dockerfile: development/Dockerfile.web
     container_name: spring-web
     ports:
       - "8080:8080"
