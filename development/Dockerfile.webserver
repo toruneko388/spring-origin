@@ -1,0 +1,7 @@
+FROM httpd:2.4
+
+# ホスト側の httpd.conf を Apache の設定ディレクトリにコピー
+COPY ./development/apache/httpd.conf /usr/local/apache2/conf/httpd.conf
+
+# ポート番号を宣言（80: HTTP）
+EXPOSE 80

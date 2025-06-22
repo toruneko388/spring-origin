@@ -51,7 +51,7 @@
   </dependencies>
 
   <build>
-    <finalName>spring-webapp</finalName>
+    <finalName>ROOT</finalName>
     <plugins>
       <!-- WAR出力用 -->
       <plugin>
