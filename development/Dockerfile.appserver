@@ -7,7 +7,7 @@ RUN useradd -r -u 1001 -g root -s /usr/sbin/nologin tomcatuser
 RUN rm -rf /usr/local/tomcat/webapps/*
 
 # WARファイルを配置（ホスト→イメージ内）
-COPY ./spring-webapp/target/ROOT.war /usr/local/tomcat/webapps/ROOT.war
+COPY ./spring-webapp/target/spring-webapp.war /usr/local/tomcat/webapps/spring-webapp.war
 
 # WARファイルの所有者を変更（root:root → tomcat
 RUN chown -R tomcatuser:root /usr/local/tomcat/webapps
