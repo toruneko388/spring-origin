@@ -11,9 +11,7 @@ RUN apt-get update && \
     groupadd -g $GID devgroup && \
     useradd -m -s /bin/bash -u $UID -g $GID devuser && \
     mkdir -p /workspace && \
-    chown -R devuser:devgroup /workspace && \
-    mkdir -p /workspace/shared/target && \
-    chown -R $UID:$GID /workspace
+    chown -R devuser:devgroup /workspace
 
 # ユーザをdevuserに切り替え
 # これにより、コンテナ内での操作がdevuser権限

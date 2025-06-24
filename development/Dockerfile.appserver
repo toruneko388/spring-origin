@@ -1,23 +1,28 @@
 FROM tomcat:9.0
 
-# 非rootのシステムユーザーを追加（ログイン不可）
-RUN useradd -r -u 1001 -g root -s /usr/sbin/nologin tomcatuser
+# tomcatのユーザ定義
+RUN groupadd --system --gid 1001 tomcat && \
+    useradd --system --uid 1001 --gid tomcat --home /usr/local/tomcat tomcat
+
+# Tomcatの設定ファイルの所有者を変更（root:root → tomcat:tomcat）
+RUN mkdir -p /usr/local/tomcat/conf/Catalina/localhost
 
 # デフォルトのwebappsの中身を消す
 RUN rm -rf /usr/local/tomcat/webapps/*
 
-# WARファイルを配置（ホスト→イメージ内）
-COPY ./spring-webapp/target/spring-webapp.war /usr/local/tomcat/webapps/spring-webapp.war
+# WARファイルを配置（ホスト→イメージ内）WARファイルの所有者を変更（root:root → tomcat:tomcat）
+COPY ./spring-webapp/target/spring-webapp.war \
+     /usr/local/tomcat/webapps/
 
-# WARファイルの所有者を変更（root:root → tomcat
-RUN chown -R tomcatuser:root /usr/local/tomcat/webapps
+# Tomcatの設定ファイルを配置（ホスト→イメージ内）所有者を変更（root:root → tomcat:tomcat）
+RUN chown -R tomcat:tomcat /usr/local/tomcat
 
 # 明示的に宣言 アプリ＋JPDAポートを公開（リモートデバッグ用）
 EXPOSE 8080
 EXPOSE 8000
 
 # 実行ユーザー
-USER tomcatuser
+USER tomcat
 
 # JPDA_PORTを8000に設定（リモートデバッグ用）全てのIPアドレスから接続可能
 # JPDA_PORTはJava Platform Debugger Architectureの略で、リモートデバッグ用のポート

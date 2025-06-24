@@ -24,3 +24,9 @@ restart-apache:
 # Tomcat のみ再起動（WARの差し替え後など）
 restart-tomcat:
 	docker compose restart appserver
+
+builder-build-nocache:
+	docker compose build builder --no-cache
+
+appserver-build-nocache:
+	docker compose build appserver --no-cache
