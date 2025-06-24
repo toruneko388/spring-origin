@@ -1,0 +1,25 @@
+<configuration>
+
+  <!-- コンソール出力 -->
+  <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <!-- ファイル出力 -->
+  <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+    <file>/usr/local/tomcat/logs/app.log</file> <!-- 出力先パス（コンテナ内） -->
+    <append>true</append> <!-- true = 追記、false = 上書き -->
+    <encoder>
+      <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <!-- ルートロガーの設定：INFO以上を出力、2つの出力先を指定 -->
+  <root level="INFO">
+    <appender-ref ref="CONSOLE"/>
+    <appender-ref ref="FILE"/>
+  </root>
+
+</configuration>
