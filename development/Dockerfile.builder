@@ -7,6 +7,7 @@ ARG GID
 ENV MAVEN_CONFIG=/home/devuser/.m2
 
 RUN apt-get update && \
+#    apt-get install -y --no-install-recommends postgresql-client && \
     groupadd -g $GID devgroup && \
     useradd -m -s /bin/bash -u $UID -g $GID devuser && \
     mkdir -p /workspace && \

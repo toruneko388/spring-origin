@@ -85,6 +85,27 @@
       <scope>provided</scope>
     </dependency>
 
+    <!-- PostgreSQL JDBC ドライバ -->
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>42.7.2</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jdbc</artifactId>
+      <version>5.3.38</version>
+    </dependency>
+
+    <!-- connection-pool (Apache Commons DBCP2) -->
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-dbcp2</artifactId>
+      <version>2.11.0</version>
+    </dependency>
+
+
   </dependencies>
 
   <!-- ────────────────────────────── -->

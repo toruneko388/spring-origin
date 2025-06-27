@@ -6,9 +6,24 @@ import org.springframework.ui.Model;
 
 import lombok.extern.slf4j.Slf4j;
 
+import com.example.dao.GreetingDao;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 @Slf4j
 @Controller
 public class HelloController {
+    private final GreetingDao dao;
+
+    public HelloController(GreetingDao dao) {
+        this.dao = dao;
+    }
+
+    @GetMapping("/dbtest")
+    @ResponseBody
+    public String dbtest() {
+        return dao.findFirst();   // → “Hello from Postgres!”
+    }
+
     @GetMapping("/hello")
     public String hello(Model model) {
         // INFOレベルのログを出力

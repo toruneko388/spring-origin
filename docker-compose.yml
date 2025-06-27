@@ -35,3 +35,25 @@ services:
       - "80:80"
     depends_on:
       - appserver
+  db:
+    image: postgres:16-alpine  # デフォルトは 16-alpine
+    container_name: postgres-db
+    restart: unless-stopped # コンテナが停止した場合、再起動する
+    env_file:
+      - .env                # 下記の変数を読み込む
+    environment:            # .env で定義した値をそのまま渡す
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      TZ: Asia/Tokyo # タイムゾーンを設定
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - "${PG_PORT:-5432}:5432" # 環境変数が設定されていない場合はデフォルトの5432を使用
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"] # データベースが起動しているか確認するコマンド
+      interval: 10s # 健康チェックの間隔
+      timeout: 5s # 健康チェックのタイムアウト
+      retries: 5 # 健康チェックの再試行回数
+volumes:
+  db-data:                             # 永続化用
