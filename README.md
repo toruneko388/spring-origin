@@ -113,8 +113,13 @@ export GID=$(id -g)
 
 ---
 
-## 今後のロードマップ (例)
+## 今後のロードマップ
 
-- Thymeleaf テンプレート導入
+- SSL導入
+- ログイン機能
+- リダイレクト
+- X-Forwarded-For など追加・変更
+- 鍵の追加
+- ORマッパー、AOP、バリデーション
 - CI/CD (GitHub Actions) での自動ビルド
-- テスト環境用 DB コンテナ (MySQL/PostgreSQL) の追加
+- API

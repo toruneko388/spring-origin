@@ -92,13 +92,14 @@
       <version>42.7.2</version>
     </dependency>
 
+     <!-- テンプレートを付与するJDBC の補助ライブラリ -->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-jdbc</artifactId>
       <version>5.3.38</version>
     </dependency>
 
-    <!-- connection-pool (Apache Commons DBCP2) -->
+    <!-- 複数の DB 接続をあらかじめ作っておき、使い回すことで性能向上＆リソース節約 -->
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-dbcp2</artifactId>
