@@ -3,6 +3,22 @@
   xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
   version="3.1">
 
+  <!-- Root ApplicationContext を作るリスナー -->
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+
+  <context-param>
+    <param-name>contextClass</param-name>
+    <param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
+  </context-param>
+
+  <!-- RootConfig を Root Context に紐付け -->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>com.example.config.RootConfig</param-value>
+  </context-param>
+
   <servlet>
     <!-- このサーブレットの識別名`dispatcher` とつけるのが慣例） -->
     <servlet-name>dispatcher</servlet-name>
