@@ -31,7 +31,7 @@
     <!-- 実際に読み込む設定クラスの場所（FQCN）を指定-->
     <init-param>
       <param-name>contextConfigLocation</param-name>
-      <param-value>com.example.config.AppConfig</param-value>
+      <param-value>com.example.config.WebMvcConfig</param-value>
     </init-param>
     <load-on-startup>1</load-on-startup>
   </servlet>

@@ -13,7 +13,7 @@ import org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "com.example")
-public class AppConfig implements WebMvcConfigurer {
+public class WebMvcConfig implements WebMvcConfigurer {
 
     @Bean
     public SpringResourceTemplateResolver templateResolver() {
