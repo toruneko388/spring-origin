@@ -28,3 +28,11 @@ target/
 
 # environment variables
 .env
+
+# SSL/TLS certificates
+*.crt
+*.key
+*.pem
+*.p12
+*.jks
+*.csr

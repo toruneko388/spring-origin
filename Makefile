@@ -34,3 +34,7 @@ appserver-build-nocache:
 # PostgreSQLのコンテナに接続
 dbpsql:
 	docker compose exec db bash -c 'PGPASSWORD=$$POSTGRES_PASSWORD exec psql -U $$POSTGRES_USER -d $$POSTGRES_DB'
+
+# Mavenのテスト実行（builderコンテナを使用）
+test:
+	docker compose run --rm builder bash -c "cd spring-webapp && mvn verify -Pwith-tests"

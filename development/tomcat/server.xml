@@ -1,0 +1,30 @@
+<Server port="8005" shutdown="SHUTDOWN">
+  <Service name="Catalina"> <!-- サービス単位（通常1つ）-->
+
+    <!-- 通常のHTTP -->
+    <Connector port="8080" protocol="HTTP/1.1" connectionTimeout="20000" redirectPort="8443" />
+
+    <!-- HTTPSのConnector -->
+    <Connector
+      protocol="org.apache.coyote.http11.Http11NioProtocol"
+      port="8443"
+      scheme="https"
+      secure="true"
+      SSLEnabled="true"
+    >
+      <SSLHostConfig>
+        <Certificate
+          certificateKeystoreFile="/usr/local/tomcat/conf/keystore.p12"
+          certificateKeystorePassword="changeit"
+          certificateKeystoreType="PKCS12"
+        />
+      </SSLHostConfig>
+    </Connector>
+
+    <Engine name="Catalina" defaultHost="localhost"> <!-- リクエスト処理エンジン-->
+      <Host name="localhost" appBase="webapps" unpackWARs="true" autoDeploy="true" /> <!--
+      仮想ホスト：アプリをデプロイする場所-->
+      <!-- <Context> タグで WAR の個別設定も可 -->
+    </Engine>
+  </Service>
+</Server>

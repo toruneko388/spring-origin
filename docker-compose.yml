@@ -23,8 +23,11 @@ services:
       context: .
       dockerfile: development/Dockerfile.appserver
     container_name: spring-appserver
+    ports:
+      - "8443:8443"
     expose:
       - "8080"
+      #- "8443:8443" # ← HTTPS 用ポート
       - "8000"  # ← デバッグ用ポート
   webserver:
     build:
@@ -55,5 +58,13 @@ services:
       interval: 10s # 健康チェックの間隔
       timeout: 5s # 健康チェックのタイムアウト
       retries: 5 # 健康チェックの再試行回数
+  certbuilder:
+    build:
+      context: .
+      dockerfile: development/Dockerfile.certbuilder
+    container_name: ssl-certbuilder
+    user: "${UID}:${GID}"
+    volumes:
+      - ./build-certs:/certs   # ← 出力先（ホスト共有）
 volumes:
   db-data:                             # 永続化用

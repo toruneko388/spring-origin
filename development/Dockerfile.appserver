@@ -2,24 +2,25 @@ FROM tomcat:10.1-jre21-temurin
 
 # tomcatのユーザ定義
 RUN groupadd --system --gid 1001 tomcat && \
-    useradd --system --uid 1001 --gid tomcat --home /usr/local/tomcat tomcat
-
-# Tomcatの設定ファイルを配置するディレクトリを作成
-RUN mkdir -p /usr/local/tomcat/conf/Catalina/localhost
-
-# デフォルトのwebappsの中身を消す
-RUN rm -rf /usr/local/tomcat/webapps/*
+    useradd --system --uid 1001 --gid tomcat --home /usr/local/tomcat tomcat && \
+    # Tomcatの設定ファイルを配置するディレクトリを作成
+    mkdir -p /usr/local/tomcat/conf/Catalina/localhost && \
+    # デフォルトのwebappsの中身を消す
+    rm -rf /usr/local/tomcat/webapps/*
 
 # WARファイルを配置（ホスト→イメージ内）WARファイルの所有者を変更（root:root → tomcat:tomcat）
 COPY ./spring-webapp/target/spring-webapp.war \
      /usr/local/tomcat/webapps/
 
+# TLS 用 keystore / server.xml をコピー
+COPY development/tomcat/keystore.p12 /usr/local/tomcat/conf/
+COPY development/tomcat/server.xml /usr/local/tomcat/conf/
+
 # 所有者を変更（root:root → tomcat:tomcat）
 RUN chown -R tomcat:tomcat /usr/local/tomcat
 
-# 明示的に宣言 アプリ＋JPDAポートを公開（リモートデバッグ用）
-EXPOSE 8080
-EXPOSE 8000
+# 8443 (HTTPS) も公開
+EXPOSE 8080 8000 8443
 
 # 実行ユーザー
 USER tomcat
