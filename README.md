@@ -116,6 +116,7 @@ export GID=$(id -g)
 ## 今後のロードマップ
 
 - SSL導入
+- networks を定義して外部公開サービスだけ default に載せる
 - ログイン機能
 - リダイレクト
 - X-Forwarded-For など追加・変更

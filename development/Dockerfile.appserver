@@ -13,7 +13,7 @@ COPY ./spring-webapp/target/spring-webapp.war \
      /usr/local/tomcat/webapps/
 
 # TLS 用 keystore / server.xml をコピー
-COPY development/tomcat/keystore.p12 /usr/local/tomcat/conf/
+COPY development/tomcat/certs/keystore.p12 /usr/local/tomcat/conf/
 COPY development/tomcat/server.xml /usr/local/tomcat/conf/
 
 # 所有者を変更（root:root → tomcat:tomcat）

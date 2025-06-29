@@ -23,21 +23,25 @@ services:
       context: .
       dockerfile: development/Dockerfile.appserver
     container_name: spring-appserver
-    ports:
-      - "8443:8443"
     expose:
       - "8080"
-      #- "8443:8443" # ← HTTPS 用ポート
       - "8000"  # ← デバッグ用ポート
+    #volumes:
+      #- ./spring-webapp/target/spring-webapp.war:/usr/local/tomcat/webapps/spring-webapp.war:ro
+      #- ./development/tomcat/server.xml:/usr/local/tomcat/conf/server.xml:ro
+      #- ./development/tomcat/certs/keystore.p12:/usr/local/tomcat/conf/keystore.p12:ro
   webserver:
-    build:
-      context: .
-      dockerfile: development/Dockerfile.webserver
+    image: httpd:2.4.63-alpine # Apache HTTP Serverのイメージ
     container_name: apache-webserver
     ports:
-      - "80:80"
+      - "8443:8443"                   # 外部公開ポート
+      - "80:80"                   # リダイレクトさせる
     depends_on:
       - appserver
+    volumes:
+      - ./development/apache/httpd.conf:/usr/local/apache2/conf/httpd.conf:ro
+      - ./development/apache/conf.d:/usr/local/apache2/conf/conf.d:ro
+      - ./development/apache/certs:/usr/local/apache2/conf/certs:ro
   db:
     image: postgres:16-alpine  # デフォルトは 16-alpine
     container_name: postgres-db

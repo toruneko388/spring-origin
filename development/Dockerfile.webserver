@@ -12,6 +12,9 @@ RUN if ! getent group daemon > /dev/null; then groupadd -r daemon; fi && \
 # ホスト側の httpd.conf を Apache の設定ディレクトリにコピー
 COPY ./development/apache/httpd.conf /usr/local/apache2/conf/httpd.conf
 
+# 証明書と秘密鍵を配置
+COPY ./development/apache/certs /usr/local/apache2/conf/certs
+
 # ポート番号を宣言（80: HTTP）
 EXPOSE 80
 
