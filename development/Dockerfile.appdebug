@@ -13,10 +13,15 @@ COPY ./spring-webapp/target/spring-webapp.war \
      /usr/local/tomcat/webapps/
 
 # 8443 (HTTPS) も公開
-EXPOSE 8080
+EXPOSE 8080 8000 8443
 
 # 実行ユーザー
 USER tomcat
 
+# JPDA_PORTを8000に設定（リモートデバッグ用）全てのIPアドレスから接続可能
+# JPDA_PORTはJava Platform Debugger Architectureの略で、リモートデバッグ用のポート
+ENV JPDA_ADDRESS=0.0.0.0:8000
+ENV JPDA_TRANSPORT=dt_socket
+
 # Tomcat起動（WARはボリューム経由で配置）
-CMD ["catalina.sh", "run"]
+CMD ["catalina.sh", "jpda", "run"]

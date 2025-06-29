@@ -4,7 +4,8 @@
     <!-- 通常のHTTP -->
     <Connector port="8080" protocol="HTTP/1.1" connectionTimeout="20000" redirectPort="8443" />
 
-    <!-- HTTPSのConnector -->
+    <!-- HTTPSのConnector（不要なので無効化） -->
+    <!--
     <Connector
       protocol="org.apache.coyote.http11.Http11NioProtocol"
       port="8443"
@@ -20,6 +21,7 @@
         />
       </SSLHostConfig>
     </Connector>
+    -->
 
     <Engine name="Catalina" defaultHost="localhost"> <!-- リクエスト処理エンジン-->
       <Host name="localhost" appBase="webapps" unpackWARs="true" autoDeploy="true" /> <!--
